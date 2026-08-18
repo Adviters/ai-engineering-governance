@@ -11,7 +11,8 @@ Protected branches include `main`, `master`, `develop`, and `qa` unless `.ai/con
 
 - Inspect the current branch and working tree first.
 - Reuse an existing task branch when it already matches the work.
-- Create a branch only when none exists.
+- Create a branch only when none exists, from the current HEAD, using `git checkout -b <name>`. Never switch to `develop`/`main` to use it as the base.
+- Branch name: `<type>/<ticket>-<short-summary>` when the user gives a Jira/Trello id (example: `TASK-1234 cambiar color` → `fix/task-1234-changed-color`). Lowercase the ticket. Reuse the branch if it already exists.
 - Never run `git reset --hard`, `git clean`, automatic stash, or silent branch switching with dirty files.
 - If the working tree makes a checkout unsafe: stop and explain.
 

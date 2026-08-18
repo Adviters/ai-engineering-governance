@@ -510,25 +510,32 @@ The `start-task` workflow:
 5. searches existing local branches;
 6. searches the remote;
 7. reuses an existing branch when possible;
-8. creates a new branch only when needed.
+8. creates a new branch only when needed, from the current HEAD with `git checkout -b` (not by checking out `develop` or `main` first).
 
 Typical naming:
 
 ```text
-feat/<description>
-fix/<description>
-refactor/<description>
-chore/<description>
-docs/<description>
-test/<description>
+<type>/<ticket>-<short-summary>
 ```
 
-If a ticket identifier is available, it should be preserved.
+`type` is `feat`, `fix`, `refactor`, `chore`, `docs`, or `test`.
+
+If the user provides a Jira/Trello/Linear identifier, it is lowercased and kept as the first segment after the type. A short kebab-case summary of the main ask follows.
 
 Example:
 
 ```text
-feat/PROJ-123-password-recovery
+TASK-1234 cambiar color  →  fix/task-1234-changed-color
+```
+
+```text
+feat/proj-123-password-recovery
+```
+
+If there is no ticket id:
+
+```text
+feat/password-recovery
 ```
 
 The workflow must never automatically:
