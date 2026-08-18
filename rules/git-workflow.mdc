@@ -1,0 +1,18 @@
+---
+description: Git workflow for task branches. Use before modifying versioned files or when the current branch is protected.
+alwaysApply: false
+---
+
+# Git Workflow
+
+Use skill `start-task` before changing versioned files.
+
+Protected branches include `main`, `master`, `develop`, and `qa` unless `.ai/config.json` overrides them.
+
+- Inspect the current branch and working tree first.
+- Reuse an existing task branch when it already matches the work.
+- Create a branch only when none exists.
+- Never run `git reset --hard`, `git clean`, automatic stash, or silent branch switching with dirty files.
+- If the working tree makes a checkout unsafe: stop and explain.
+
+A branch is a unit of work, not a prompt.

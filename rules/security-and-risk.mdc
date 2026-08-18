@@ -1,0 +1,12 @@
+---
+description: Security and high-risk change policy for agents. Use when touching auth, secrets, infrastructure, dependencies, or destructive commands.
+alwaysApply: false
+---
+
+# Security and Risk
+
+- HIGH_RISK paths need an approved plan before writes.
+- The Agent must not run destructive git, filesystem, database, terraform destroy, broad kubectl deletes, or publish commands.
+- The Agent must not install or change dependencies unless the approved plan says so.
+- The Agent must not run `approve-plan`, `approve-stage`, or `deploy-qa`.
+- This plugin is local agent governance. It does not replace branch protection, PR review, CI, IAM, or production access control.

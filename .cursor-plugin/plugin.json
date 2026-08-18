@@ -1,0 +1,21 @@
+{
+  "name": "ai-engineering-governance",
+  "description": "Engineering guardrails for Cursor Agents: task assessment, branch protection, plan approvals, staged implementation, dangerous command guards and quality gates.",
+  "version": "0.1.0-beta",
+  "author": {
+    "name": "Adviters"
+  },
+  "homepage": "https://github.com/Adviters/ai-engineering-governance",
+  "repository": "https://github.com/Adviters/ai-engineering-governance",
+  "license": "MIT",
+  "keywords": [
+    "governance",
+    "guardrails",
+    "agents",
+    "workflow",
+    "planning",
+    "security",
+    "git"
+  ],
+  "logo": "assets/logo.svg"
+}

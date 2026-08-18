@@ -1,0 +1,15 @@
+---
+description: Classify work as READ_ONLY, SIMPLE, PLAN_REQUIRED, or HIGH_RISK before implementation. Use when starting a task or deciding whether a plan is required.
+alwaysApply: false
+---
+
+# Task Classification
+
+Use skill `assess-task` before writing code.
+
+- READ_ONLY: explain, search, review, analyze, or draft a plan. No project file writes.
+- SIMPLE: one or two localized low-risk files. Not an escape hatch.
+- PLAN_REQUIRED: multiple files, layers, architecture, public contracts, or unclear requirements.
+- HIGH_RISK: auth, secrets, security config, schema, migrations, CI/CD, infra, deploy, destructive commands, critical dependencies.
+
+HIGH_RISK always needs a plan and human approval. Classification is semantic; hooks are the backstop.

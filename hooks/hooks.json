@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "hooks": {
+    "preToolUse": [
+      {
+        "command": "node \"${CURSOR_PLUGIN_ROOT}/scripts/hooks/pre-tool-use.mjs\"",
+        "matcher": "Write|StrReplace|Delete|Edit|Shell",
+        "timeout": 10,
+        "failClosed": true
+      }
+    ],
+    "beforeShellExecution": [
+      {
+        "command": "node \"${CURSOR_PLUGIN_ROOT}/scripts/hooks/before-shell.mjs\"",
+        "timeout": 10,
+        "failClosed": true
+      }
+    ],
+    "postToolUse": [
+      {
+        "command": "node \"${CURSOR_PLUGIN_ROOT}/scripts/hooks/post-tool-use.mjs\"",
+        "matcher": "Write|StrReplace|Delete|Edit",
+        "timeout": 10
+      }
+    ],
+    "stop": [
+      {
+        "command": "node \"${CURSOR_PLUGIN_ROOT}/scripts/hooks/stop.mjs\"",
+        "loop_limit": 2,
+        "timeout": 10
+      }
+    ],
+    "preCompact": [
+      {
+        "command": "node \"${CURSOR_PLUGIN_ROOT}/scripts/hooks/pre-compact.mjs\"",
+        "timeout": 5
+      }
+    ]
+  }
+}

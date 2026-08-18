@@ -1,0 +1,14 @@
+{
+  "name": "ai-engineering-governance",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Technology-agnostic AI Engineering Governance for Cursor agents.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test"
+  }
+}

@@ -1,0 +1,12 @@
+---
+description: Implementation plans are contracts. Use when a task needs a plan, approval, or stage-scoped changes.
+alwaysApply: false
+---
+
+# Plan Governance
+
+Use skills `create-plan` and `execute-approved-plan`.
+
+A required plan is a contract. It must include Task, Goal, Context, Constraints, Risks, and Stages. Each stage needs objective, allowed_paths, implementation work, verification, and completion criteria.
+
+Do not implement PLAN_REQUIRED or HIGH_RISK work from a DRAFT plan. A human must run `approve-plan`. Editing PLAN.md invalidates approval. Do not write a giant plan without stages.

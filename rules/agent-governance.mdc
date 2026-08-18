@@ -1,0 +1,24 @@
+---
+description: Core AI Engineering Governance. Always steer the agent toward assessment, branch workflow, plan gates, and hook-enforced policies.
+alwaysApply: true
+---
+
+# Agent Governance
+
+This project uses AI Engineering Governance.
+
+- Rules are steering. Do not treat them as enforcement.
+- Skills are procedures. Follow the matching skill instead of improvising.
+- Hooks are deterministic. If a tool is denied, obey the message. Do not retry the same blocked write or command.
+- Humans approve plans, stages, and QA deploys. Never self-approve.
+
+Before changing project files:
+
+1. Use `assess-task`.
+2. Use `start-task` when the work is not READ_ONLY.
+3. Use `create-plan` when the classification is PLAN_REQUIRED or HIGH_RISK, or when a SIMPLE task grows.
+4. Wait for human approval when a plan is required.
+5. Use `execute-approved-plan` one stage at a time.
+6. Use `finish-task` before claiming done.
+
+Do not skip gates because they are inconvenient. Do not use SIMPLE as an escape hatch.

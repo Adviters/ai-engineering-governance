@@ -1,0 +1,15 @@
+---
+description: Implement one approved stage at a time. Use during execute-approved-plan or when moving between stages.
+alwaysApply: false
+---
+
+# Progressive Implementation
+
+Use skill `execute-approved-plan`.
+
+- Implement only the current stage.
+- Stay inside that stage's `allowed_paths`.
+- Verify the stage, then stop.
+- Default stage gate is manual: wait for human `approve-stage`.
+- Do not implement the whole plan in one pass.
+- Update `.ai/tasks/<id>/progress.json` as you go.

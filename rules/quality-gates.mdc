@@ -1,0 +1,14 @@
+---
+description: Quality gates before calling a task done. Use when finishing, reviewing, or preparing a QA deploy.
+alwaysApply: false
+---
+
+# Quality Gates
+
+Use skill `finish-task` before claiming completion.
+
+- Run only the verification declared by the plan or project config.
+- Do not assume `npm test`, `npm run build`, or `npm run lint` exist.
+- Never mark DONE if a required check failed.
+- Review the diff, unexpected files, out-of-scope changes, and new TODOs.
+- Confirm every required stage is complete.
