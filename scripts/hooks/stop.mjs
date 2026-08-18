@@ -1,6 +1,5 @@
-import { readFileSync } from 'node:fs';
 import { basename } from 'node:path';
-import { followup, writeJson } from '../lib/respond.mjs';
+import { followup, parseHookPayload, writeJson } from '../lib/respond.mjs';
 import { loadGovernanceContext } from '../lib/runtime.mjs';
 import { evaluateStopGuard } from '../lib/stop-guard.mjs';
 import { writeProgress } from '../lib/task-store.mjs';
@@ -30,12 +29,12 @@ export function handleStop(payload) {
 }
 
 function main() {
-  try {
-    const payload = JSON.parse(readFileSync(0, 'utf8') || '{}');
-    writeJson(handleStop(payload));
-  } catch {
+  const parsed = parseHookPayload();
+  if (!parsed.ok) {
     writeJson({});
+    return;
   }
+  writeJson(handleStop(parsed.payload));
 }
 
 if (basename(process.argv[1] || '') === 'stop.mjs') {

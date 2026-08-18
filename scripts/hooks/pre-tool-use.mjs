@@ -1,6 +1,5 @@
-import { readFileSync } from 'node:fs';
 import { basename } from 'node:path';
-import { deny, writeJson } from '../lib/respond.mjs';
+import { deny, denyHookParseFailure, logHookParseFailure, parseHookPayload, writeJson } from '../lib/respond.mjs';
 import { decideShell, decideWrite, loadGovernanceContext, persistDecision } from '../lib/runtime.mjs';
 import { extractShellCommand, extractWritePath, isShellTool, isWriteTool } from '../lib/tool-input.mjs';
 
@@ -40,17 +39,13 @@ export function handlePreToolUse(payload) {
 }
 
 function main() {
-  let payload = {};
-  try {
-    payload = JSON.parse(readFileSync(0, 'utf8') || '{}');
-  } catch {
-    writeJson(deny({
-      userMessage: 'Governance hook received invalid JSON.',
-      agentMessage: 'Governance hook received invalid JSON. Failing closed.',
-    }));
+  const parsed = parseHookPayload();
+  if (!parsed.ok) {
+    logHookParseFailure(parsed);
+    writeJson(denyHookParseFailure(parsed));
     return;
   }
-  writeJson(handlePreToolUse(payload));
+  writeJson(handlePreToolUse(parsed.payload));
 }
 
 if (basename(process.argv[1] || '') === 'pre-tool-use.mjs') {

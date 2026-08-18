@@ -1,6 +1,5 @@
-import { readFileSync } from 'node:fs';
 import { basename } from 'node:path';
-import { deny, writeJson } from '../lib/respond.mjs';
+import { deny, denyHookParseFailure, logHookParseFailure, parseHookPayload, writeJson } from '../lib/respond.mjs';
 import { decideShell, loadGovernanceContext, persistDecision } from '../lib/runtime.mjs';
 import { extractShellCommand } from '../lib/tool-input.mjs';
 
@@ -20,17 +19,13 @@ export function handleBeforeShell(payload) {
 }
 
 function main() {
-  let payload = {};
-  try {
-    payload = JSON.parse(readFileSync(0, 'utf8') || '{}');
-  } catch {
-    writeJson(deny({
-      userMessage: 'Governance hook received invalid JSON.',
-      agentMessage: 'Governance hook received invalid JSON. Failing closed.',
-    }));
+  const parsed = parseHookPayload();
+  if (!parsed.ok) {
+    logHookParseFailure(parsed);
+    writeJson(denyHookParseFailure(parsed));
     return;
   }
-  writeJson(handleBeforeShell(payload));
+  writeJson(handleBeforeShell(parsed.payload));
 }
 
 if (basename(process.argv[1] || '') === 'before-shell.mjs') {

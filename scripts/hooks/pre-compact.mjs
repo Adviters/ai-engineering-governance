@@ -1,6 +1,5 @@
-import { readFileSync } from 'node:fs';
 import { basename } from 'node:path';
-import { compactWarning, writeJson } from '../lib/respond.mjs';
+import { compactWarning, parseHookPayload, writeJson } from '../lib/respond.mjs';
 
 const MESSAGE = [
   'Context compaction is about to run. This percentage is a heuristic, not a precise measurement.',
@@ -14,12 +13,12 @@ export function handlePreCompact(payload) {
 }
 
 function main() {
-  try {
-    const payload = JSON.parse(readFileSync(0, 'utf8') || '{}');
-    writeJson(handlePreCompact(payload));
-  } catch {
+  const parsed = parseHookPayload();
+  if (!parsed.ok) {
     writeJson({});
+    return;
   }
+  writeJson(handlePreCompact(parsed.payload));
 }
 
 if (basename(process.argv[1] || '') === 'pre-compact.mjs') {

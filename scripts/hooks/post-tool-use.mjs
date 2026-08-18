@@ -1,6 +1,5 @@
-import { readFileSync } from 'node:fs';
 import { basename } from 'node:path';
-import { writeJson } from '../lib/respond.mjs';
+import { parseHookPayload, writeJson } from '../lib/respond.mjs';
 import { loadGovernanceContext, recordSuccessfulWrite } from '../lib/runtime.mjs';
 import { extractWritePath, isWriteTool } from '../lib/tool-input.mjs';
 
@@ -19,12 +18,12 @@ export function handlePostToolUse(payload) {
 }
 
 function main() {
-  try {
-    const payload = JSON.parse(readFileSync(0, 'utf8') || '{}');
-    writeJson(handlePostToolUse(payload));
-  } catch {
+  const parsed = parseHookPayload();
+  if (!parsed.ok) {
     writeJson({});
+    return;
   }
+  writeJson(handlePostToolUse(parsed.payload));
 }
 
 if (basename(process.argv[1] || '') === 'post-tool-use.mjs') {
